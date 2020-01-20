@@ -1,0 +1,324 @@
+<html>
+    <head>
+        <title>AhxMidiPlayer</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+
+    <body>
+        <div class="main--container">
+            <div class="main--images">
+                    <img src="img/AMP_logo3.png" />
+            </div>
+        
+            <h1 class="main--title">AhxMidiPlayer</h1>            
+            <div class="main--author">neuroflip ^obsolete ^303bcn</div>
+            <div class="main--downloadLink"><a href="bin/amp1.0.lha">> Download <</a></div>
+            <br />
+
+            <a href="#requirements">1. Requirements</a><br />
+            <a href="#installation">2. Installation</a><br />
+            <a href="#configuration">3. Configuration</a><br />
+            <a href="#channels">3.1 Channels and ahx instruments</a><br />
+            <a href="#pmodifier">3.1.1 p modifier</a><br />
+            <a href="#mmodifier">3.1.2 m modifier</a><br />
+            <a href="#vmodifier">3.1.3 v modifier</a><br />
+            <a href="#controls">3.2 Controls and instrument parameters </a><br />
+            <a href="#executing">4. Executing amp</a><br />
+            <a href="#future">5. Future</a><br />
+            <a href="#recomendations">6. Recomendations</a><br />
+            <a href="#notes">7. Notes</a><br />
+            <a href="#greetings">8. Greetings</a><br />
+
+            <div class="main--text">
+                <P>AMP is a try to get some MIDI features using the AHX engine sounds. You can assign midi channels to ahx instruments, bang notes using 
+                NOTE ON midi messages or edit ahx instrument parameters like the ADSR curve 
+                using CC midi commands.</P>
+                
+                <P>So it can be used to play notes on midi keyboards, edit their sound using
+                pots, sequence ahx notes in a modern DAW, grooveboxes or any other hardware 
+                or software MIDI capable. In general use your Amiga as an AHX MIDI instrument.</P>
+
+                <h3 id="requirements" class="point">1. Requirements</h3>
+                <ul>
+                    <li>It should work with any Amiga capable of running the AHX replayer routines (rom 2.+)</li>
+                    <li>It was only tested on a1200/020/030/060 and amiga 4000/040 using rom 3.1.</li>
+                </ul>
+                
+                <h3 id="installation" class="point">2. Installation</h3>
+
+                <ul>
+                    <li>[optional] Copy amp executable to c:</li>
+                    <li>Copy camd library into LIBS:</li>
+                    <li>[optional] Copy Microknight font into FONTS:</li>
+                    <li>Create your amp.ini configuration file</li>
+                    <li>Copy amp.ini into S:</li>
+                </ul>
+                
+                <h3 id="configuration" class="point">3. Configuring amp</h3>
+
+                <p>amp is configured using the amp.ini file. The file must be placed inside S:
+                Using it you can configure all the midi channel to ahx instrument 
+                connections and all the configuration to be able to edit all the ahx 
+                instrument parameters (except the plist).</p>
+
+                <h3 id="channels" class="point">3.1 Channels and ahx instruments</h3>
+
+                <p>In the channels section we assign a midi channel to an ahx instrument:</p>
+
+                <div class="codeBox">
+                [channels]<br />
+                midiChannel:anxInstrument<br />
+                </div>
+
+                <p>For example:</p>
+
+                <div class="codeBox">
+                [channels]<br />
+                10:5<br />
+                1:1<br />
+                </div>
+                
+                <p>
+                It will map the midi channel 10 to the ahxInstrument 5.
+                It will map the midi channel 1 to the ahxInstrument 1
+                </p>
+
+                <p>You can define up to 4 midi channels and each ahx instrument assigned will 
+                use different ahx audio channels to avoid note cuts. The ahx channel is assigned 
+                in order of definition. You can extend that basic behaviour using modifiers. 
+                The modifiers can be specified after the ahx instrument and you can use them 
+                all together.</p>
+
+                <h3 id="pmodifier" class="point">3.1.1 p modifier</h3>
+
+                <p>Adds poliphony to an ahx instruments. It means that this instrument will use
+                all the 4 audio channels, so it can play up to 4 notes at the same time.</p>
+
+                <div class="codeBox">
+                [channels]<br />
+                1:1p<br />
+                </div>
+                
+                <p>Useful to play chords.</p>
+
+                <h3 id="mmodifier" class="point">3.1.2 m modifier</h3>
+
+                <p>
+                This modifier will use the specified instrument and the next 3 ones assigned
+                to the same MIDI instrument. It will bang notes only for C-3, D-3, E-3 and
+                F-3, and each note will bang a different ahx instrument.
+                </p>
+                
+                <p>Use it to play percussions (or other instruments) selected by note. It can be 
+                used on several midi channels and its useful to play percusion patterns from 
+                rymth or groove boxes.
+                </p>
+
+                <div class="codeBox">
+                [channels]<br />
+                10:3m<br />
+                </div>
+
+                <p>Indicates that:
+
+                C-3 will be assigned to play the ahx instrument 3
+                D-3 will be assigned to play the ahx instrument 4
+                E-3 will be assigned to play the ahx instrument 5
+                F-3 will be assigned to play the ahx instrument 6
+
+                Only that notes will bang the replayer.</p>
+
+                <h3 id="vmodifier" class="point">3.1.3 v modifier</h3>
+
+                <p>Use it to add sensibility to play notes. It will bang the selected note using the Cxx
+                (volume) command to emulate note sensibility.</p>
+
+                <div class="codeBox">
+                    [channels]<br />
+                    2:3v<br />
+                </div>    
+
+                <h3 id="controls" class="point">3.2 Controls and instrument parameters</h3>
+
+                <p>In the constrols sections we assign CC midi commands to ahx instrument parameters:</p>
+
+                <div class="codeBox">
+                [controls]<br />
+                ccCommand:ahxParameter<br />
+                </div>
+
+                <p>In the next example, we are assigning the CC command 56 to edit the instrument master volume:</p>
+
+                <div class="codeBox">
+                [constrols]<br />
+                CC_56:MASTERVOL<br />
+                </div>
+
+                <p>The list of CC commands that amp can manage is (unused/unstandard CC comands):</p>
+
+                <div class="codeBox">
+                CC_52<br />
+                CC_53<br />
+                CC_54<br />
+                CC_55<br />
+                CC_56<br />
+
+                CC_71<br />
+                CC_74<br />
+                CC_79<br />
+                CC_83<br />
+
+                CC_85<br />
+                CC_86<br />
+                CC_87<br />
+                CC_88<br />
+                CC_89<br />
+                CC_90<br />
+                CC_102<br />
+                CC_103<br />
+                CC_104<br />
+                CC_105<br />
+                CC_106<br />
+                CC_107<br />
+                CC_108<br />
+                CC_109<br />
+                </div>
+                <p>
+                The list of ahx instrument parameters that can be edited with CC commands is:
+                </p>
+                
+                <div class="codeBox">
+                    MASTERVOL<br />
+                    WAVELENGTH<br />
+                    ATTACK<br />
+                    ATTACKVEL<br />
+                    DECAY<br />
+                    DECAYVEL<br />
+                    SUSTAIN<br />
+                    RELEASE<br />
+                    VIBRATODELAY<br />
+                    VIBRATODEPTH<br />
+                    VIBRATOSPEED<br />
+                    SQUAREMODULATIONLOW<br />
+                    SQUAREMODULATIONUP<br />
+                    SQUAREMODULATIONSPEED<br />
+                    FILTERMODULATIONLOW<br />
+                    FILTERMODULATIONUP<br />
+                    FILTERMODULATIONSPEED<br />
+                    PLISTSPEED<br />
+
+                    PRINT<br />
+                    SAVE<br />
+                </div>
+
+                <p>
+                As you can see on the list, you can edit almost all the ahx instrument 
+                parameters except the PLIST. And notice that there are some special ahx 
+                instrument parameters: PRINT, SAVE. </p>
+
+                <ul>
+                <li>PRINT can be called to print by console all the current ahx 
+                instrument values.</li>
+
+                <li>SAVE can be called to save the current edit status of AHX module to file.
+                The original file will not be overwriten, but all the save operations will use
+                the original filename adding the ending '_amp'.</li>
+                </ul>
+
+                <p>An exemple of a full amp.ini file can be:</p>
+
+                <div class="codeBox">
+                [channels]<br />
+                1:1m<br />
+                2:5p<br />
+                3:6pv<br />
+                4:7<br />
+                [constrols]<br />
+                CC_52:SAVE<br />
+                CC_53:PRINT<br />
+                CC_56:MASTERVOL<br />
+                CC_102:FILTERMODULATIONLOW<br />
+                CC_103:FILTERMODULATIONUP<br />
+                CC_104:FILTERMODULATIONSPEED<br />
+                CC_106:SQUAREMODULATIONLOW<br />
+                CC_107:SQUAREMODULATIONUP<br />
+                CC_108:SQUAREMODULATIONSPEED<br />
+                CC_105:WAVELENGTH<br />
+                CC_109:PLISTSPEED<br />
+                </div>
+
+                <h3 id="executing" class="point">4. Executing amp</h3>
+
+                <p>To execute amp just call it using the ahx file to load, and an optional 
+                parameter DEBUG to get more verbose when midi messages occurs. Use this
+                parameter only to debug your amp.ini configuration. To use amp as a midi
+                instrument, avoid to use debug mode to get better performance.</p>
+
+                <div class="codeBox">
+                amp thx.file [debug] [screen]
+                </div>
+                
+                <p><img class="screenshot" src="img/AMP_AmigaScreen.png" /></p>
+                <p>The SCREEN flag will create a public screen showing the amp UI.
+                The DEBUG flag will activate the debug mode, printing all the MIDI IN 
+                messages in the defined midi channels.</p>
+
+                <p>Press Right Alt to PLAY the midi player.
+                Press Right Amiga to STOP the midi player. 
+                If the midi player is not running i cant bang notes into the replayer.</p>
+
+                <p>To exit amp push:</p>
+
+                <ul>
+                <li>in cli mode: Ctrl+C</li>
+                <li>in screen mode: Escape</li>
+                </ul>
+
+                <h3 id="future" class="point">5. Future planned features</h3>
+
+                <ul>
+                    <li>solve some bugs and memory leaks</li>
+                    <li>full instrument edition, including the instrument plist and hardcut values.</li>
+                    <li>new flag to clear all in memory the sequenced patterns in the mod</li>
+                    <li>better UI</li>
+                    <li>rom 1.3 support</li>
+                    <li>github release of the amiga E source code</li>
+                </ul>
+
+                <h3 id="recomendations" class="point">6. Recomendations</h3>
+                <ul>
+                    <li>Avoid to use the DEBUG mode to play</li>
+                    <li>send always NOTE OFF commands </li>
+                    <li>Add more priority to the amp task to get better performance</li>
+                    <li>Follow the ahx instructions to precalculate the ahx tables. You will get faster
+                    startup times because of the ahx replayer routines (important in slow machines)</li>
+                </ul>
+
+                <h3 id="notes" class="point">7. Notes</h3>
+
+                <p>This release is the initial version released in the Capacitor Party 2019 
+                presented as a MIDI toy and not a serious application. Use it a your own risk.
+                As a special feature this party version implements the custom NRPN MIDI 
+                messages from the Korg Electribe machines.</p>
+
+                <h3 id="greetings" class="point">8. Greetings</h3>
+
+                <p>
+                tasita - one love<br />
+                crumb - you know, this is happening because we met at Posadas 2018<br />
+                mvac7^303bcn - you always listen to all my crazy stuff. thanks alot.<br />
+                tolkien^Goblins - for the testing time! thanks!<br />
+                Carles - for the testing and the video using it with an MCP<br />
+                Obsolete crew<br />
+                </p>
+
+                <p>Screen design, artwork and pixels by mvac7^303bcn</p>
+
+                <p>Contact at neuroflip@weareobsolete.art<br />
+                Obsolete.2019</p>
+            </div>
+        </div>
+    </body>
+</html>

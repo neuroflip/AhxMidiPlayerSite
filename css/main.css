@@ -1,0 +1,64 @@
+@font-face {
+    font-family:"Topaza1200";
+    src: url(../fonts/Topaz_a1200_v1.0.ttf);
+}
+
+body {
+    background-color: #998899;
+    font-family: "Topaza1200";
+    margin: 0;
+    line-height: 20px;
+}
+
+a {
+    color: #dbccda;
+    text-decoration: none;
+}
+
+.main--title {
+    width: 100%;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.main--author {
+    width: 100%;
+    text-align: center;
+}
+
+.main--downloadLink {
+    width: 100%;
+    text-align: center;   
+}
+
+.main--images {
+    width: 100%;
+    text-align: center;
+}
+
+.main--images > img {
+    max-width: 342px;
+    text-align: center;
+}
+
+.screenshot {
+    margin: 35px 0;
+    width: 100%;
+    text-align: center;
+}
+
+.codeBox {
+    background-color: #dbccda;
+    color: #444;
+    width: 85%;
+    max-width: 300px;
+    margin: auto;
+}
+
+.main--container {
+    margin: auto;
+    width: 80%;
+    max-width: 600px;
+}
+
+
