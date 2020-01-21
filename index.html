@@ -17,6 +17,7 @@
             <div class="main--downloadLink"><a href="bin/amp1.0.lha">> Download <</a></div>
             <br />
 
+            <div class="index">
             <a href="#requirements">1. Requirements</a><br />
             <a href="#installation">2. Installation</a><br />
             <a href="#configuration">3. Configuration</a><br />
@@ -30,6 +31,7 @@
             <a href="#recomendations">6. Recomendations</a><br />
             <a href="#notes">7. Notes</a><br />
             <a href="#greetings">8. Greetings</a><br />
+            </div>
 
             <div class="main--text">
                 <P>AMP is a try to get some MIDI features using the AHX engine sounds. You can assign midi channels to ahx instruments, bang notes using 
@@ -257,7 +259,12 @@
                 amp thx.file [debug] [screen]
                 </div>
                 
-                <p><img class="screenshot" src="img/AMP_AmigaScreen.png" /></p>
+                <p>
+                <figure>
+                        <img class="screenshot" src="img/AMP_AmigaScreen.png" alt="amp screenshot" />
+                        <figcaption>amp running in SCREEN mode</figcaption>
+                </figure>
+                </p>
                 <ul>
                     <li>The SCREEN flag will create a public screen showing the amp UI. </li>
                     <li>The DEBUG flag will activate the debug mode, printing all the MIDI IN messages in 
@@ -267,7 +274,7 @@
       
                 To play midi using amp, you need to play the mod before throw notes into the replayer. Running amp in cli mode, it will autoplay the mod. 
                 But running amp in SCREEN mode, press Right Alt to PLAY the mod or press Right Amiga to STOP the midi player.
-                If the midi player is not running i can't bang notes into the replayer.
+                If the midi player is not running amp can't bang notes into the replayer.
 
                 <p>To exit amp push:</p>
 
@@ -297,9 +304,10 @@
 
                 <h3 id="notes" class="point">7. Notes</h3>
 
-                <p>This release solves some bugs detected by beta users using the Capacitor Party 2019 release version. 
-                    As a special feature this version keeps the custom NRPN MIDI messages from the Korg Electribe machines.
-                    So it can be used in a limited way using the old Korg Electribe Series.</p>
+                <p>This release solves some bugs detected by beta users using the Capacitor Party 2019 release version. </p>
+                    
+                <p>As a special feature this version keeps the custom NRPN MIDI messages from the Korg Electribe machines.
+                So it can be used in a limited way using the old Korg Electribe Series.</p>
 
                 <p>Thanks to mvac7 ^303bcn, tolkien ^goblins and Carles for the testing!</p>
 

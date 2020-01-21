@@ -4,6 +4,7 @@
 }
 
 body {
+    position: absolute;
     background-color: #998899;
     font-family: "Topaza1200";
     margin: 0;
@@ -18,6 +19,12 @@ a {
 h3 {
     margin-top: 36px;
     margin-bottom: 0;
+}
+
+figure {
+    margin: 35px 0; 
+    text-align: center;
+    width: 100%;
 }
 
 .main--title {
@@ -42,13 +49,14 @@ h3 {
 }
 
 .main--images > img {
-    max-width: 342px;
+    width: 300px;
+    height: 150px;
     text-align: center;
 }
 
 .screenshot {
-    margin: 35px 0;
     width: 100%;
+    max-width: 520px;
     text-align: center;
 }
 
@@ -61,10 +69,13 @@ h3 {
     padding: 5px;
 }
 
+.index {
+    margin-top: 25px;
+}
+
 .main--container {
-    margin: auto;
+    margin: 50px auto;
     width: 80%;
-    max-width: 600px;
 }
 
 
