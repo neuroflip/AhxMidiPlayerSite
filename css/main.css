@@ -5,10 +5,11 @@
 
 body {
     position: absolute;
+    margin: 0;
+    width: 100%;
+    line-height: 20px;
     background-color: #998899;
     font-family: "Topaza1200";
-    margin: 0;
-    line-height: 20px;
 }
 
 a {
@@ -49,12 +50,12 @@ figure {
 }
 
 .main--images > img {
-    width: 300px;
-    height: 150px;
+    width: 320px;
+    height: 160px;
     text-align: center;
 }
 
-.screenshot {
+.main--text_screenshot {
     width: 100%;
     max-width: 520px;
     text-align: center;
@@ -69,13 +70,30 @@ figure {
     padding: 5px;
 }
 
-.index {
+.main--index {
     margin-top: 25px;
+}
+
+.contact {
+    text-align: center;
+    margin-top: 50px;
 }
 
 .main--container {
     margin: 50px auto;
-    width: 80%;
+    width: 60%;
+    max-width: 800px;
 }
+
+@media (max-width: 600px) {
+    .main--container {
+      width: 90%;
+    }
+
+    .main--images > img {
+        width: 272px;
+        height: 136px;
+    }    
+  }
 
 
