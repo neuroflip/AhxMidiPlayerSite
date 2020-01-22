@@ -74,9 +74,13 @@ figure {
     margin-top: 25px;
 }
 
-.contact {
+.main--container_contact {
     text-align: center;
     margin-top: 50px;
+}
+
+.main--container_contact > img {
+    width: 50px;
 }
 
 .main--container {
